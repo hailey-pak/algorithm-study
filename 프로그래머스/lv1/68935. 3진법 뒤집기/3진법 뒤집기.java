@@ -7,13 +7,7 @@ class Solution {
             n = n / 3;
         }
 
-        int ans = 0;
-        int size = sb.toString().length();
-        for (int i = 0; i < size; i++) {
-            int k = sb.charAt(size-i-1) - '0';
-            ans += k * Math.pow(3, i);
-
-        }
-        return ans;
+        String s = sb.toString();
+        return Integer.parseInt(s, 3);
     }
 }
