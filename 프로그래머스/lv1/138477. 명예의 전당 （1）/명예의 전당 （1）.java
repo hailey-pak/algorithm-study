@@ -1,22 +1,16 @@
-import java.util.Arrays;
+import java.util.PriorityQueue;
 
 class Solution {
     public int[] solution(int k, int[] score) {
-        int[] award = new int[k];
         int[] answer = new int[score.length];
-
-        for (int i = 0; i < k; i++) {
-            award[i] = Integer.MAX_VALUE;
-        }
+        PriorityQueue<Integer> queue = new PriorityQueue();
 
         for (int i = 0; i < score.length; i++) {
-            if (i < k) {
-                award[i] = score[i];
-            } else if (Arrays.stream(award).min().getAsInt() <= score[i]) {
-                award[0] = score[i];
+            queue.add(score[i]);
+            if (queue.size() > k) {
+                queue.poll();
             }
-            Arrays.sort(award);
-            answer[i] = award[0];
+            answer[i] = queue.peek();
         }
         return answer;
     }
