@@ -1,34 +1,17 @@
-import java.util.Scanner;
+import java.io.BufferedReader;
+import java.io.InputStreamReader;
 
 public class Main {
-
-    static Integer[] dp;
-
-    public static void main(String[] args) {
-        int N = new Scanner(System.in).nextInt();
-
-        dp = new Integer[N + 1];
-        dp[0] = dp[1] = 0;
-
-        System.out.println(cal(N));
+    public static void main(String[] args) throws Exception {
+        BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+        int N = Integer.parseInt(br.readLine());
+        System.out.println(cal(N, 0));
     }
 
-    static int cal(int x) {
-        if (dp[x] == null) {
-
-            if (x % 6 == 0) {
-                dp[x] = Math.min(cal(x - 1), Math.min(cal(x / 3), cal(x / 2))) + 1;
-            }
-            else if (x % 3 == 0) {
-                dp[x] = Math.min(cal(x / 3), cal(x - 1)) + 1;
-            }
-            else if (x % 2 == 0) {
-                dp[x] = Math.min(cal(x / 2), cal(x - 1)) + 1;
-            }
-            else {
-                dp[x] = cal(x - 1) + 1;
-            }
+    static int cal(int x, int cnt) {
+        if (x < 2) {
+            return cnt;
         }
-        return dp[x];
+        return Math.min(cal(x / 2, cnt + 1 + (x % 2)), cal(x / 3, cnt + 1 + (x % 3)));
     }
 }
